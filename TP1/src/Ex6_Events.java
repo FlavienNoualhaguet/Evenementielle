@@ -14,20 +14,42 @@ public class Ex6_Events extends Application {
         Button btn = new Button("Click me!");
         
         // Listen to ActionEvents on button (convenience method)
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+   /*     btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Convenience method ActionEvent on button");
                 System.out.println("    target: " + event.getTarget() + " - source:" + event.getSource() + "\n");
+            }
+        }); */
+        btn.addEventFilter(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Action due to btn subscription");                        
             }
         });
 
         // Create the root container and add the button as its child
         StackPane root = new StackPane();
         root.getChildren().add(btn);
+        
+        root.addEventFilter(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Action due to root subscription");
+                event.consume();
+            }
+        });
 
         // Set up root container, scene and stage
         Scene scene = new Scene(root, 300, 250);
+        
+        root.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle(ActionEvent event) {
+                System.out.println("Action due to scene subscription");
+            }
+        });
+        
         primaryStage.setScene(scene);
         primaryStage.show();
     }
