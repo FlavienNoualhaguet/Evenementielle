@@ -1,12 +1,11 @@
 package javafxdragpanzoom.view.views;
 
+import java.util.ArrayList;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Shape;
 
 /**
  * Grid which is translatable and whose scaling is homothetic.
@@ -19,7 +18,7 @@ public class TranslatableHomotheticPaneGrid extends TranslatableHomotheticPane {
     private final static int WIDTH = 600;
     private final static int HEIGHT = 600;
     private final static int GRID_OFFSET = 50;
-    private Shape lines;
+    private ArrayList<Line> lines;
     
     // Group to hold the grid drawings
     protected final Group grid = new Group();
@@ -38,24 +37,25 @@ public class TranslatableHomotheticPaneGrid extends TranslatableHomotheticPane {
         setStyle(STYLE);
         setPrefSize(WIDTH, HEIGHT);
         // ...
+        lines = new ArrayList();
         
-        lines = new Path();
         for (int i=GRID_OFFSET; i<WIDTH; i=i+GRID_OFFSET) {
-            lines = Shape.union(lines, new Line(i, 0, i, HEIGHT));
+            lines.add(new Line(i, 0, i, HEIGHT));
         }
         
         for (int i=GRID_OFFSET; i<HEIGHT; i=i+GRID_OFFSET) {
-            lines = Shape.union(lines, new Line(0, i, WIDTH, i));
+            lines.add(new Line(0, i, WIDTH, i));
         }
         
-        getChildren().add(lines);
+        getChildren().addAll(lines);
         
         ChangeListener listener = new ChangeListener<Double>(){
             @Override
             public void changed(ObservableValue<? extends Double> observable, Double oldValue, Double newValue) {
                 double width = 1/newValue;
-                
-                lines.strokeWidthProperty().set(width);
+                for (Line line: lines) {
+                    line.strokeWidthProperty().set(width);
+                }
             }
             
         };
