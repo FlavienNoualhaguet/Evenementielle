@@ -1,7 +1,11 @@
 package javafxdragpanzoom.view.views;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Shape;
 
 /**
@@ -15,6 +19,7 @@ public class TranslatableHomotheticPaneGrid extends TranslatableHomotheticPane {
     private final static int WIDTH = 600;
     private final static int HEIGHT = 600;
     private final static int GRID_OFFSET = 50;
+    private Shape lines;
     
     // Group to hold the grid drawings
     protected final Group grid = new Group();
@@ -34,7 +39,7 @@ public class TranslatableHomotheticPaneGrid extends TranslatableHomotheticPane {
         setPrefSize(WIDTH, HEIGHT);
         // ...
         
-        Shape lines = new Line();
+        lines = new Path();
         for (int i=GRID_OFFSET; i<WIDTH; i=i+GRID_OFFSET) {
             lines = Shape.union(lines, new Line(i, 0, i, HEIGHT));
         }
@@ -44,6 +49,19 @@ public class TranslatableHomotheticPaneGrid extends TranslatableHomotheticPane {
         }
         
         getChildren().add(lines);
+        
+        ChangeListener listener = new ChangeListener<Double>(){
+            @Override
+            public void changed(ObservableValue<? extends Double> observable, Double oldValue, Double newValue) {
+                double width = 1/newValue;
+                
+                lines.strokeWidthProperty().set(width);
+            }
+            
+        };
+        
+        
+        this.scaleProperty().addListener(listener);
         
     }
 }

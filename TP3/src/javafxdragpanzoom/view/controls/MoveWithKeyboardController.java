@@ -28,7 +28,7 @@ public class MoveWithKeyboardController {
             public void handle(KeyEvent event) {
                 int dx = 0;
                 int dy = 0;
-                
+                double deltaScale = 1.0;
                 switch (event.getCode()) {
                     case UP:
                         dx = 0;
@@ -46,12 +46,25 @@ public class MoveWithKeyboardController {
                         dx = STEP;
                         dy = 0;
                         break;
+                    case P:
+                        dx = 0;
+                        dy = 0;
+                        deltaScale = 1.1;
+                        break;
+                    case M:
+                        dx = 0;
+                        dy = 0;
+                        deltaScale = 0.9;
+                        break;
                     default:
                         break;
                 }
                 // Translate
                 widgetToMove.setTranslateX(widgetToMove.getTranslateX() + dx);
                 widgetToMove.setTranslateY(widgetToMove.getTranslateY() + dy);
+                widgetToMove.setScaleX(widgetToMove.getScaleX()*deltaScale);
+                widgetToMove.setScaleY(widgetToMove.getScaleY()*deltaScale);
+
                 // WARNING: 
                 // this was just an example to show a subscription to keyboard events.
                 // For the graphical transformations on the grid and the rectangle 

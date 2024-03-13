@@ -17,6 +17,7 @@ import javafxdragpanzoom.view.views.TranslatableHomotheticPaneRect;
 import javafxdragpanzoom.statemachines.DragStateMachine;
 import javafxdragpanzoom.view.controls.DragControllerFSM;
 import javafxdragpanzoom.view.controls.PanControllerFSM;
+import javafxdragpanzoom.view.controls.ZoomController;
 
 public class DragPanZoomApplication extends Application {
 
@@ -38,6 +39,9 @@ public class DragPanZoomApplication extends Application {
         grid.setLayoutX(100);
         grid.setLayoutY(100);
         root.getChildren().add(grid);
+        PanControllerFSM panControllerFSM = new PanControllerFSM(grid);
+        ZoomController zoomController = new ZoomController(grid);
+
         
         // Rectangle avec drag
         TranslatableHomotheticPane rect = new TranslatableHomotheticPaneRect();
@@ -47,8 +51,6 @@ public class DragPanZoomApplication extends Application {
         MoveWithKeyboardController moveWithKeyboardController = new MoveWithKeyboardController(rect);
         
        // PanController panController = new PanController(grid);
-        PanControllerFSM panControllerFSM = new PanControllerFSM(grid);
         DragControllerFSM dragControllerFSM = new DragControllerFSM(rect);
-
     }
 }

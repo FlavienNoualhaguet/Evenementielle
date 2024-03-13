@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventType;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Affine;
+import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import javafxdragpanzoom.view.controls.ITranslatable;
 import javafxdragpanzoom.view.controls.IHomothetic;
@@ -53,12 +54,12 @@ public class TranslatableHomotheticPane extends Pane implements IHomothetic, ITr
 
     @Override
     public void appendScale(double deltaScale) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.transforms.append(new Scale(deltaScale,deltaScale));
     }
 
     @Override
     public void appendScale(double deltaScale, double pivotX, double pivotY) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.transforms.append(new Scale(deltaScale,deltaScale, pivotX, pivotY));
     }
 
     @Override

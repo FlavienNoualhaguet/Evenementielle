@@ -18,7 +18,6 @@ import javafxdragpanzoom.view.controls.ITranslatable;
 public class DragStateMachine extends StateMachine  {
 
     private double startX, startY;
-    private boolean enterDragged;
     
     public DragStateMachine() {
     }
@@ -27,7 +26,7 @@ public class DragStateMachine extends StateMachine  {
         Transition press = new Transition<Press>() {
             @Override
             public State goTo(){
-                return dragging;
+                return waiting;
             }
             
             @Override
@@ -35,7 +34,6 @@ public class DragStateMachine extends StateMachine  {
                 
                 startX = evt.p.x;
                 startY = evt.p.y;
-                enterDragged = false;
                 
             }
         };
@@ -45,11 +43,13 @@ public class DragStateMachine extends StateMachine  {
         Transition moveHysteres = new Transition<Move>() {
             @Override
             public State goTo() {
+                return dragging;
+            };
+            
+            @Override
+            protected boolean guard () {
                 Vector delta = new Vector(evt.p.x - startX, evt.p.y - startY);
-                if (50 <= delta.norm()){
-                    return dragging;
-                }
-                else {return waiting;}
+                return 50 <= delta.norm();
             };
         };
         
