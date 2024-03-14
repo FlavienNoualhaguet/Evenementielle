@@ -6,6 +6,7 @@ package javafxdragpanzoom;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -44,7 +45,9 @@ public class DragPanZoomApplication extends Application {
 
         
         // Rectangle avec drag
-        TranslatableHomotheticPane rect = new TranslatableHomotheticPaneRect();
+        DoubleProperty scalePropertyGrid = grid.scaleProperty();
+        
+        TranslatableHomotheticPane rect = new TranslatableHomotheticPaneRect(scalePropertyGrid);
         rect.setLayoutX(450);
         rect.setLayoutY(450);
         grid.getChildren().add(rect);

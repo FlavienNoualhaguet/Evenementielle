@@ -29,17 +29,5 @@ public class ZoomController {
             }
         });
         
-    }
-
-    private static class Point {
-
-        public Point() {
-        }
-
-        private Point(double x, double y) {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-    }
-    
-    
+    }  
 }

@@ -1,6 +1,10 @@
 package javafxdragpanzoom.view.views;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 
@@ -13,7 +17,7 @@ public class TranslatableHomotheticPaneRect extends TranslatableHomotheticPane {
     /**
      * Constructor
      */
-    public TranslatableHomotheticPaneRect() {
+    public TranslatableHomotheticPaneRect(DoubleProperty scaleProperty) {
         super();
         
         // Create a rectangle of 100px by 100px, 
@@ -23,5 +27,17 @@ public class TranslatableHomotheticPaneRect extends TranslatableHomotheticPane {
         rect.setStrokeType(StrokeType.INSIDE);
         rect.setFill(Color.BLUE.deriveColor(1, 1, 1, 0.5));
         getChildren().add(rect);
-    }
-}
+        
+        TranslatableHomotheticPane rectBis = this;
+        
+        ChangeListener listener = new ChangeListener<Double>(){
+            @Override
+            public void changed(ObservableValue<? extends Double> observable, Double oldValue, Double newValue) {
+                double width = 1/newValue;
+                rectBis.replaceScale(width);
+                }
+            };
+        scaleProperty.addListener(listener);
+            
+        };
+ }

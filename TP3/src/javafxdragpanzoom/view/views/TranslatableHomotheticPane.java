@@ -44,12 +44,14 @@ public class TranslatableHomotheticPane extends Pane implements IHomothetic, ITr
     
     @Override
     public void replaceScale(double newScale) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.transforms.setToIdentity();
+        this.transforms.append(new Scale(newScale, newScale));
     }
     
     @Override
     public void replaceScale(double newScale, double pivotX, double pivotY) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.transforms.setToIdentity();
+        this.transforms.append(new Scale(newScale, newScale, pivotX, pivotY));    
     }
 
     @Override
