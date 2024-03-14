@@ -10,6 +10,9 @@
 /Helloworld/nbproject
 /Helloworld/manifest.mf
 /Helloworld/build.xml
+/DragAndDrop/build.xml
+/DragAndDrop/manifest.mf
+/DragAndDrop/nbproject
 /TP1/build
 /TP1/dist
 /TP2/build
@@ -18,3 +21,6 @@
 /TP3/dist
 /Helloworld/build
 /Helloworld/dist
+/DragAndDrop/nbproject/private/
+/DragAndDrop/build/
+/DragAndDrop/dist/
